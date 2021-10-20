@@ -21,4 +21,4 @@ MSc Forestry Sciences, State University of Southwestern Bahia, 2021.
 
 BSc in Forestry, State University of Southwestern Bahia, 2017.  
 
-My [resume]("resume.pdf").
+My [resume](resume.pdf).
