@@ -17,4 +17,5 @@ navbar:
       href: https://twitter.com/TheilonMacedo
     - icon: fa fa-linkedin
       href: https://www.linkedin.com/in/theilonmacedo/
+  search: false
 output: distill::distill_article
