@@ -15,10 +15,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![](avatar.jpg){width=50%}
 
-## Education:
+### Education:
  
-MSc Forestry Sciences, State University of Southwestern Bahia, 2021.  
+* MSc Forestry Sciences, State University of Southwestern Bahia, 2021.  
 
-BSc in Forestry, State University of Southwestern Bahia, 2017.  
+* BSc in Forestry, State University of Southwestern Bahia, 2017.  
 
-My [resumé](resume.pdf).  
+Here you can find my [resumé](resume.pdf).  
