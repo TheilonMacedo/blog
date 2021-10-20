@@ -1,0 +1,24 @@
+---
+title: "Theilon Macedo"
+description: |
+  My learning journey to become a Machine Learning Engineer.
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+![](avatar.jpg){width=250px} 
+
+## Education:
+ 
+MSc Forestry Sciences, State University of Southwestern Bahia, 2021.  
+
+BSc in Forestry, State University of Southwestern Bahia, 2017.  
+
+My [resume]("resume.pdf").

@@ -1,0 +1,20 @@
+name: "website"
+title: "Theilon Macedo"
+description: |
+  Machine Learning, R, Python, Julia and Forestry.
+output_dir: "_site"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Posts"
+      href: blog.html
+    - icon: fa fa-github
+      href: https://github.com/TheilonMacedo
+    - icon: fa fa-twitter
+      href: https://twitter.com/TheilonMacedo
+    - icon: fa fa-linkedin
+      href: https://www.linkedin.com/in/theilonmacedo/
+output: distill::distill_article
