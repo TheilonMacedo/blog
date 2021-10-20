@@ -6,14 +6,14 @@
       "description": "I am a forest engineer interested in Remote Sensing, Hydrology, Machine Learning, R, Python and Julia. And I really like passionfruit desserts.",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-10-20T01:33:57-03:00"
+      "last_modified": "2021-10-20T01:52:41-03:00"
     },
     {
       "path": "blog.html",
       "title": "blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-10-20T01:33:57-03:00"
+      "last_modified": "2021-10-20T01:52:41-03:00"
     },
     {
       "path": "index.html",
@@ -21,7 +21,7 @@
       "description": "My learning journey to become a Machine Learning Engineer.\n",
       "author": [],
       "contents": "\r\n\r\nEducation:\r\nMSc Forestry Sciences, State University of Southwestern Bahia, 2021.\r\nBSc in Forestry, State University of Southwestern Bahia, 2017.\r\nMy resume.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-10-20T01:33:58-03:00"
+      "last_modified": "2021-10-20T01:52:41-03:00"
     }
   ],
   "collections": ["posts/posts.json"]

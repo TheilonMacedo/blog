@@ -6,6 +6,7 @@ author:
   - name: Theilon Macedo
     url: {}
 date: 2021-10-20
+preview: scatter_vol.png
 output:
   distill::distill_article:
     self_contained: false
