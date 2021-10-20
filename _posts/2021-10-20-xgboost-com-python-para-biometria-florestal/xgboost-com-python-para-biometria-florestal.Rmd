@@ -144,6 +144,8 @@ model.fit(X, y)
 
 Pronto! Agora basta escolher a melhor forma de salvar seu modelo seja usando pickle ou joblib (papo para outro texto).  
 
+Repositório: https://github.com/TheilonMacedo/volumetria_xgboost.
+
 ### Referências
 
 Azevedo, G. B. et al. Multi-volume modeling of Eucalyptus trees using regression and artificial neural networks. Plos one, v. 15, n. 9, p. e0238703, 2020.  
