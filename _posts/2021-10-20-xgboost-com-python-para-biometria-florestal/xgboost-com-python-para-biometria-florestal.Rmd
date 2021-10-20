@@ -38,7 +38,6 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import pickle
 
 ```
 
@@ -107,7 +106,7 @@ print("Coeficiente de determinação - R²:", metrics.r2_score(y_test, predicted
 
 ```
 O modelo apresentou um R² bastante elevado, indicando potencial de uso para a predição do volume de eucalipto.  
-Obtendo uma apresentação visual dos resultados do volume predito com o modelo XGBoost e observado em campo:  
+Obtendo uma apresentação visual dos resultados do volume predito com o modelo XGBoost e o volume observado em campo:  
 
 ```{python eval=FALSE}
 

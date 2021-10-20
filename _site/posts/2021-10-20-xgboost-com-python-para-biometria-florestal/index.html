@@ -1866,8 +1866,7 @@ O processo de treinamento desses modelos se dá de forma iterativa, em que são 
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span></code></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
 </div>
 <p>Neste caso, o dataset já estava particionado. Porém, optei por realizar a sua unificação de modo a seguir o padrão estipulado no texto anterior.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1911,7 +1910,7 @@ O processo de treinamento desses modelos se dá de forma iterativa, em que são 
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficiente de determinação - R²:&quot;</span>, metrics.r2_score(y_test, predicted_vol))</span></code></pre></div>
 </div>
 <p>O modelo apresentou um R² bastante elevado, indicando potencial de uso para a predição do volume de eucalipto.<br />
-Obtendo uma apresentação visual dos resultados do volume predito com o modelo XGBoost e observado em campo:</p>
+Obtendo uma apresentação visual dos resultados do volume predito com o modelo XGBoost e o volume observado em campo:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">7</span>), dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(model_results[<span class="st">&quot;actual&quot;</span>], </span>
