@@ -18,7 +18,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-No último [texto](https://theilonmacedo.netlify.app/post/2021-09-24-predizendo-o-volume-de-eucalipto-com-tidymodels-de-forma-reprodutivel/) que escrevi, o XGBoost foi o melhor modelo ajustado dentre todos os que foram testados. Um colega que leu o texto me solicitou um auxílio para ajustar este modelo usando Python, já que essa é a linguagem que ele possui maior domínio. Então decidi aproveitar e escrever um breve tutorial sobre esse ajuste.   
+No último [texto](https://theilonmacedo.netlify.app/posts/2021-10-20-predizendo-volume-de-eucalipto-com-tidymodels-xgboost-e-targets/) que escrevi, o XGBoost foi o melhor modelo ajustado dentre todos os que foram testados. Um colega que leu o texto me solicitou um auxílio para ajustar este modelo usando Python, já que essa é a linguagem que ele possui maior domínio. Então decidi aproveitar e escrever um breve tutorial sobre esse ajuste.   
 
 O dataset aqui utilizado é oriundo do excelente trabalho publicado publicado por [Azevedo et al. (2020)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0238703).
 
