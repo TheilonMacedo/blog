@@ -110,6 +110,10 @@ Obtendo uma apresentação visual dos resultados do volume predito com o modelo 
 
 ```{python eval=FALSE}
 
+model_results = pd.DataFrame({"actual": y_test["V"].array, 
+                              "predicted": predicted_vol}
+)
+
 plt.figure(figsize=(8, 7), dpi=300)
 plt.scatter(model_results["actual"], 
             model_results["predicted"],
