@@ -160,6 +160,18 @@ Lat: -14.0°, Long: -41.0°
 
 ```
 
+Testes com coordendas em formato "geodésico "errado":  
+
+```{python eval=FALSE}
+
+>>> geo_coords.x = 'a'
+ERROR - "x" must be a number
+Traceback (most recent call last):
+  File "<stdin>", line 8, in __set__
+ValueError: could not convert string to float: 'a'
+
+```
+
 # Conclusão
 O uso de logging se mostrou bastante útil no desenvolvimento desse material, sendo uma das coisas mais legais que estudei até agora (a paixão por Python só aumenta). Muito obrigado pela visita e espero que tenham gostado da leitura!
 
