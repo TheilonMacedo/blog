@@ -1,0 +1,169 @@
+---
+title: "Como usar logging em Python"
+description: |
+  Uma breve introdução ao uso de logging.
+author:
+  - name: Theilon Macedo
+output:
+  distill::distill_article:
+    self_contained: false
+date: "`r Sys.Date()`"
+preview: featured.png
+---
+
+```{r, echo=FALSE, fig.cap="Basemap com o local das coordendas informadas."}
+knitr::include_graphics("D:/Projetos/GitHub/blog/_posts/2021-11-22-logging-Python/featured.png")
+
+```
+
+```{r setup, include=FALSE, }
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Por qual razão usar logging?
+
+O uso de logging visa facilitar o monitoramento de eventos durante a execução de um programa. Isso pode ser feito a partir da expressão `print()`. Porém o módulo logging fornece capabilidades mais elegantes de rastrear os eventos dentro do programa em questão. Isso é feito adicionando chamadas de logging ao longo do código. Achou a coisa meio abstrata? Vamo ver na prática então.  
+
+
+# Exemplo prático  
+Apenas recentemente tive contato com o módulo logging nos meus estudos de Python. Isso aconteceu quando estava realizando o desenvolvimento de um código pra utilizar no meu trabalho na área de geoprocessamento. Neste caso, vou mostrar como usar logging para apresentar os acontecimentos durante a criação de um basemap com os pontos do meu interesse. A seguir são importadas as libs necessárias:  
+
+
+```{python eval=FALSE}
+import pandas as pd
+import plotly.express as px
+import utm
+
+import logging
+```
+
+A primeira coisa a ser feita é definir as configurações de logging. Neste caso, optei por definir a formatação do output para apresentar o nível de severidade dos eventos (neste caso, o mais baixo `logging.DEBUG`) e a mensagem definida na chamada. Aqui eventos de qualquer nível pode ser rastreado, podendo ser definido a escolha do desenvolvedor entre 5 níveis de severidade distintos (`DEBUG`, `INFO`, `WARNING`, `ERROR` e `CRITICAL`).  
+
+
+```{python eval=FALSE}
+
+logging.basicConfig(format='%(levelname)s - %(message)s', level=logging.DEBUG)
+
+```
+
+Em seguida, dei sequência ao desenvolvimento do programa. Neste caso, defini o Descriptor Protocol `Coordinate` para gerenciar as coordenadas geodésicas passadas como atributos à classe `Point`. Como coordendas são em pares (x, y), uma forma de evitar repetir o código de definição de getters e setters de ambos os valores foi a partir do uso de descriptors:  
+
+```{python eval=FALSE}
+
+class Coordinate:
+    def __set_name__(self, owner, name):
+        self._name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self._name]
+
+    def __set__(self, instance, value):
+        try:
+            instance.__dict__[self._name] = float(value)
+            logging.info('Validated values.')
+        except ValueError:
+            logging.exception(f'"{self._name}" must be a number')
+
+
+```
+
+Neste caso, utilizei logging para monitorar se os valores de `x` e `y` passados ao descriptor `Coordinate` são valores válidos. Caso estes valores não sejam válidos, é levantado um erro e uma mensagem de logging. Mais sobre descriptors pode ser acessado [aqui](https://docs.python.org/3/howto/descriptor.html). Pronto! Esses foram os primeiros casos de uso de logging.   
+
+Em seguida, defin a classe `Point`, em que a mesma recebe informações sobre coordenadas de um ponto em específico:  
+
+```{python eval=FALSE}
+class Point:
+    x = Coordinate()
+    y = Coordinate()
+
+    def __init__(self, x, y, zone=None, northern=None):
+        self.x = x
+        self.y = y
+        self.zone = zone
+        self.northern = northern
+
+    def __str__(self):
+        if self.zone is not None and self.northern is True:
+            return f'Long: {self.x}m, Lat: {self.y}m, Zone: {self.zone}N'
+        elif self.zone is not None and self.northern is False:
+            return f'Long: {self.x}m, Lat: {self.y}m, Zone: {self.zone}S'
+        else:
+            return f'Lat: {self.x}°, Long: {self.y}°'
+
+    def __repr__(self):
+        if self.zone is not None and self.northern is True:
+            return f'Point({self.x}, {self.y}, {self.zone}, northern={self.northern})'
+        elif self.zone is not None and self.northern is False:
+            return f'Point({self.x}, {self.y}, {self.zone}, northern={self.northern})'
+        else:
+            return f'Point({self.x}, {self.y})'
+    
+    def plot_coord(self):        
+        if self.zone is None:
+            lat, long = self.x, self.y            
+        else:
+            logging.warning('Converting coordinates to UTM format.')
+            lat, long = utm.to_latlon(self.x, self.y, self.zone, northern=self.northern)
+            logging.warning('Conversion is completed.')
+            
+            
+        fig = px.scatter_mapbox(lat=pd.Series([lat]), lon=pd.Series([long]),
+                            color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+        fig.update_layout(mapbox_style="open-street-map")
+        fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+        fig.show()
+
+```
+
+Nesta classe primeiro são chamados os descriptos para compartilhar o comportamento das diferentes coordendas (podendo ser adicionada uma terceira `z`). Então a instância da classe é inicializada com os valores das coordendas (`x` e `y`) e com informações sobre a zona e o hemisfério. Estas duas últimas são importantes em situações onde os valores das coordenadas informadas são em UTM. Assim, pode-se ter duas formas de passar dos valores destes atributos.  
+
+O próximo passo foi definir as formas de representação da classe com os dunder methods __repr__ e __str__, também com validação de modo a apresentar o formato correto das coordenadas ao chamar uma instância da classe `Point`.   
+
+E, por fim, é definido um método para plotar um basemap interativo com a localização do ponto em questão. O basemap é oriundo da lib `plotly` e recebe apenas valores em formato geodésico, sendo necessária a conversão de coordendas quando passadas em formato UTM. Antes de realizar a conversão usando a lib `utm`,  são apresentados `logging.warning`s de que está sendo feita uma conversão das coordendas e que a conversão foi finalizada.   
+
+# Testando os resultados
+Agora resta realizar os testes e avaliar o uso da lib `logging` com coordendas em formato UTM:  
+
+```{python eval=FALSE}
+
+>>> utm_coords = Point(283979.44, 8451361.31, 24, False)
+INFO - Validated values.
+INFO - Validated values.
+
+>>> utm_coords
+Point(283979.44, 8451361.31, 24, northern=False)
+
+>>> print(utm_coords)
+Long: 283979.44m, Lat: 8451361.31m, Zone: 24S
+
+>>> utm_coords.plot_coord() # O basemap é gerado
+WARNING - Converting coordinates to UTM format.
+WARNING - Conversion is completed.
+
+```
+
+Testes com coordendas em formato geodésico:  
+
+```{python eval=FALSE}
+
+>>> geo_coords = Point(-14, -41)
+INFO - Validated values.
+INFO - Validated values.
+
+>>> geo_coords
+Point(-14.0, -41.0) 
+
+>>> print(geo_coords)      
+Lat: -14.0°, Long: -41.0°  
+
+>>> geo_coords.plot_coord() # O basemap é gerado
+
+```
+
+# Conclusão
+O uso de logging se mostrou bastante útil no desenvolvimento desse material, sendo uma das coisas mais legais que estudei até agora (a paixão por Python só aumenta). Muito obrigado pela visita e espero que tenham gostado da leitura!
+
+Mais sobre logging pode ser encontrado nestas referências:  
+https://realpython.com/python-logging/
+https://www.youtube.com/watch?v=-ARI4Cz-awo&ab_channel=CoreySchafer (um dos melhores canais de Python)
+https://github.com/Delgan/loguru (logging de forma mais simples)
