@@ -21,4 +21,4 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * BSc in Forestry, State University of Southwestern Bahia, 2017.  
 
-Here you can find my [resumé](resume.pdf).  
+Here you can find my [resumé](resume2.pdf).  
