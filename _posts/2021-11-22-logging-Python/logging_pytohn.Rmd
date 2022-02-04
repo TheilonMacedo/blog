@@ -178,4 +178,4 @@ O uso de logging se mostrou bastante útil no desenvolvimento desse material, se
 Mais sobre logging pode ser encontrado nestas referências:  
 https://realpython.com/python-logging/
 https://www.youtube.com/watch?v=-ARI4Cz-awo&ab_channel=CoreySchafer (um dos melhores canais de Python)
-https://github.com/Delgan/loguru (logging de forma mais simples)
+https://github.com/Delgan/loguru (logging de forma mais simples)  
