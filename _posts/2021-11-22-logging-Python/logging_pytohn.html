@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-11-23"/>
-  <meta property="article:created" itemprop="dateCreated" content="2021-11-23"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-02-04"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-02-04"/>
   <meta name="article:author" content="Theilon Macedo"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output","date","preview"]}},"value":[{"type":"character","attributes":{},"value":["Como usar logging em Python"]},{"type":"character","attributes":{},"value":["Uma breve introdução ao uso de logging.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Theilon Macedo"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["2021-11-23"]},{"type":"character","attributes":{},"value":["featured.png"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output","date","preview"]}},"value":[{"type":"character","attributes":{},"value":["Como usar logging em Python"]},{"type":"character","attributes":{},"value":["Uma breve introdução ao uso de logging.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Theilon Macedo"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["2022-02-04"]},{"type":"character","attributes":{},"value":["featured.png"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1459,7 +1459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Como usar logging em Python","description":"Uma breve introdução ao uso de logging.","authors":[{"author":"Theilon Macedo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-11-23T00:00:00.000-03:00","citationText":"Macedo, 2021"}
+{"title":"Como usar logging em Python","description":"Uma breve introdução ao uso de logging.","authors":[{"author":"Theilon Macedo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-02-04T00:00:00.000-03:00","citationText":"Macedo, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1478,12 +1478,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Theilon Macedo  
   
-<br/>2021-11-23
+<br/>2022-02-04
 </div>
 
 <div class="d-article">
 <div class="layout-chunk" data-layout="l-body">
-<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="featured.png" alt="Basemap com o local das coordendas informadas." width="590" />
 <p class="caption">
 Figure 1: Basemap com o local das coordendas informadas.
@@ -1599,11 +1599,19 @@ Figure 1: Basemap com o local das coordendas informadas.
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> geo_coords.plot_coord() <span class="co"># O basemap é gerado</span></span></code></pre></div>
 </div>
+<p>Testes com coordendas em formato “geodésico”errado”:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> geo_coords.x <span class="op">=</span> <span class="st">&#39;a&#39;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ERROR <span class="op">-</span> <span class="st">&quot;x&quot;</span> must be a number</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">8</span>, <span class="kw">in</span> <span class="fu">__set__</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: could <span class="kw">not</span> convert string to <span class="bu">float</span>: <span class="st">&#39;a&#39;</span></span></code></pre></div>
+</div>
 <h1 id="conclusão">Conclusão</h1>
 <p>O uso de logging se mostrou bastante útil no desenvolvimento desse material, sendo uma das coisas mais legais que estudei até agora (a paixão por Python só aumenta). Muito obrigado pela visita e espero que tenham gostado da leitura!</p>
 <p>Mais sobre logging pode ser encontrado nestas referências:<br />
-<a href="https://realpython.com/python-logging/" class="uri">https://realpython.com/python-logging/</a> <a href="https://www.youtube.com/watch?v=-ARI4Cz-awo&amp;ab_channel=CoreySchafer" class="uri">https://www.youtube.com/watch?v=-ARI4Cz-awo&amp;ab_channel=CoreySchafer</a> (um dos melhores canais de Python) <a href="https://github.com/Delgan/loguru" class="uri">https://github.com/Delgan/loguru</a> (logging de forma mais simples)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<a href="https://realpython.com/python-logging/" class="uri">https://realpython.com/python-logging/</a> <a href="https://www.youtube.com/watch?v=-ARI4Cz-awo&amp;ab_channel=CoreySchafer" class="uri">https://www.youtube.com/watch?v=-ARI4Cz-awo&amp;ab_channel=CoreySchafer</a> (um dos melhores canais de Python)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

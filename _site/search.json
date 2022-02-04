@@ -13,7 +13,7 @@
       "title": "blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-10-21T13:25:39-03:00"
+      "last_modified": "2022-02-04T00:05:05-03:00"
     },
     {
       "path": "index.html",
@@ -21,7 +21,7 @@
       "description": "My learning journey to become a Machine Learning Engineer.\n",
       "author": [],
       "contents": "\r\n\r\nEducation:\r\nMSc Forestry Sciences, State University of Southwestern Bahia, 2021.\r\nBSc in Forestry, State University of Southwestern Bahia, 2017.\r\nHere you can find my resumé.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-10-21T13:25:39-03:00"
+      "last_modified": "2022-02-04T00:05:26-03:00"
     }
   ],
   "collections": ["posts/posts.json"]
