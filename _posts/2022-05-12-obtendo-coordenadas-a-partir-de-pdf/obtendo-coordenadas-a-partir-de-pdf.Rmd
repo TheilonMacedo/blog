@@ -116,7 +116,7 @@ area_uc <- read_sf(here("ucs", "ucstodas.shp")) %>%
   filter(NOME_UC1 == "PARQUE NACIONAL DO ALTO CARIRI") %>% 
   st_transform(crs = st_crs(proj))
 
-mapview(list(points_uc, points_za, area_uc), color = c("red", "green", "white"))
+mapview(list(points_uc, points_za, area_uc), color = c("red", "green", "white")) 
 ```
 
 ![Áreas do Parque Nacional do Alto Cariri, na Bahia.](featured.jpg)  
