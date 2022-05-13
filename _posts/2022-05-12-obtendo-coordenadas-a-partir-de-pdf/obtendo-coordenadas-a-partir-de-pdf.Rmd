@@ -122,4 +122,4 @@ mapview(list(points_uc, points_za, area_uc), color = c("red", "green", "white"))
 ![Áreas do Parque Nacional do Alto Cariri, na Bahia.](featured.jpg)  
 
 ### Conclusão
-Essa foi uma abordagem simples e que nos poupou bastante tempo. Espero que este materail possa servir de apoio a pessoas que encontrem os mesmos desafios que tive. Até a próxima!  
+Essa foi uma abordagem simples e que nos poupou bastante tempo. Espero que este material possa servir de apoio a pessoas que encontrem os mesmos desafios que tive. Até a próxima!  
