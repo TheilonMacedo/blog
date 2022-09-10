@@ -1,0 +1,196 @@
+---
+title: "Como filtrar colunas de forma eficiente no Pandas"
+description: |
+  Como realizar a filtragem de colunas de forma mais legível e rápida em Python.
+author:
+  - name: Theilon Macedo
+    url: {}
+date: 2022-09-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+### Criando um dataset
+Esse é um post rápido sobre uma feature da biblioteca `pandas` que aprendi recentemente ao manipular dados tabulares em Python. Primeiro, vamos criar um dataset sintético para podermos usar as features da biblioteca:  
+
+```{python eval=FALSE, echo=TRUE}
+from random import uniform
+
+import pandas as pd
+
+
+forest_info = pd.DataFrame(
+    {
+        "trees": ["Eucalyptus urophylla", "Paubrasilia echinata"] * 10, # 1
+        "height": [uniform(10.0, 20.0) for _ in range(20)], # 2
+        "dbh": [uniform(5.0, 25.0) for _ in range(20)], # 3
+        "plots": range(1, 21), # 4
+    }
+)
+
+```
+
+O dataset no pandas pode ser criado a partir de dicionários. Os passos usados foram os seguintes:  
+
+1 - Criar a coluna `trees` a partir de uma list com dois itens (nomes de árvores) e repetí-los 10 vezes (20 no total);  
+2 - Criar a coluna `height` a partir de uma list comprehension com 20 valores float entre 10.0 e 20.0 representando a altura das árvores;  
+3 - Criar a coluna `dbh` (Diameter Breast Height) a partir de uma list comprehension com 20 valores float entre 5.0 e 25.0 representando o diametro das árvores;  
+4 - Criar a coluna plots a partir de um generator usando a função `range` de 1 a 21 (20 valores) representando as parcelas onde as árvores se encontram;  
+
+Pronto! Temos nosso dataset e agora vamos colocar a mão na massa.  
+
+### Filtrando o dataset
+Imagine que devemos filtrar as árvores de `Eucalyptus urophylla` e com altura maior que 15 metros. Geralmente a filtragem de colunas por valores no `pandas` é realizada usando a seguinte sintaxe:  
+
+
+```{python eval=FALSE, echo=TRUE}
+
+forest_info[forest_info["trees"] == "Eucalyptus urophylla"]
+
+# Output
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  16.738678   8.672227      1
+# 2   Eucalyptus urophylla  10.842217  11.713358      3
+# 4   Eucalyptus urophylla  15.219263  13.234271      5
+# 6   Eucalyptus urophylla  12.622703  15.547701      7
+# 8   Eucalyptus urophylla  11.283926  15.129853      9
+#                         ...
+
+forest_info[forest_info["height"] > 15]
+
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  16.738678   8.672227      1
+# 1   Paubrasilia echinata  18.450128  15.971558      2
+# 3   Paubrasilia echinata  17.418030  15.862028      4
+# 4   Eucalyptus urophylla  15.219263  13.234271      5
+# 12  Eucalyptus urophylla  17.113081  11.347302     13
+#                        ...
+
+```
+Particularmente não curto muito essa sintaxe, pois acho ela um pouco "congestionada" de informações, principalmente quando se está trabalhando com datasets muito grandes. Caso queira-se aplicar dois filtros em uma mesma operação, fica um pouco mais complexo:  
+
+
+```{python eval=FALSE, echo=TRUE}
+forest_info[(forest_info["trees"] == "Eucalyptus urophylla") & (forest_info["height"] > 15)]
+
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 8   Eucalyptus urophylla  15.901298  19.122095      9
+# 10  Eucalyptus urophylla  19.013848   8.693424     11
+#                        ...
+```
+
+Uma forma que encontrei que torna essa filtragem mais simples é utilizar o método `.query()` do `pandas`:  
+
+
+```{python eval=FALSE, echo=TRUE}
+
+# Filtrando as espécies de árvores
+forest_info.query("trees == 'Eucalyptus urophylla'")
+
+#                   trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 4   Eucalyptus urophylla  12.391588  13.922425      5
+# 6   Eucalyptus urophylla  11.594747  17.113775      7
+#                        ...
+
+# Filtrando a altura das árvores
+forest_info.query("height > 15")
+
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 8   Eucalyptus urophylla  15.901298  19.122095      9
+# 10  Eucalyptus urophylla  19.013848   8.693424     11
+#                        ...
+
+# Unificando os filtros
+forest_info.query("trees == 'Eucalyptus urophylla' and height > 15")
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 8   Eucalyptus urophylla  15.901298  19.122095      9
+# 10  Eucalyptus urophylla  19.013848   8.693424     11
+#                        ...
+```
+
+Esse método funciona da seguinte forma: {dataframe}.query(`nome_coluna` {operador} `valores`). Acredito que essa sintaxe seja bem mais amigável e de fácil leitura, principalmente pra quem vem do R ou do SQL, sendo mais clean que a sintaxe mais comum.  
+
+### Bônus
+
+Algo que quebrei a cabeça para realizar essa semana foi a filtragem de uma coluna usando uma lista de valores. Descobri que no pandas pode ser feito a partir do método `.isin()`, desse modo:  
+
+
+```{python eval=FALSE, echo=TRUE}
+# List com espécies que quero filtrar
+species = ["Eucalyptus urophylla", "Eucalyptus grandis"]
+
+# Filtrando a coluna de espécies do dataframe com a lista de espécies de interesse
+forest_info[forest_info.trees.isin(species)]
+
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 4   Eucalyptus urophylla  12.391588  13.922425      5
+# 6   Eucalyptus urophylla  11.594747  17.113775      7
+#                        ...
+```
+
+Similar aos exemplos anteriores, achei a sintaxe um pouco poluída. Para contornar isso, mais uma vez o método `query` ao resgate:  
+
+```{python eval=FALSE, echo=TRUE}
+# Pode ser usada qualquer das duas formas 
+forest_info.query(f"trees in {species}")
+forest_info.query("trees in @species")
+
+#                    trees     height        dbh  plots
+# 0   Eucalyptus urophylla  18.415341  20.949509      1
+# 2   Eucalyptus urophylla  19.877132   9.607769      3
+# 4   Eucalyptus urophylla  12.391588  13.922425      5
+# 6   Eucalyptus urophylla  11.594747  17.113775      7
+#                        ...
+
+```
+Nesse caso pode-se usar tanto uma `f-string` como adicionar o operator `@` à frente do objeto criado (`species`).  
+Com essa mesma sintaxe, pode-se realizar a filtragem de colunas usando outras colunas:  
+
+
+```{python eval=FALSE, echo=TRUE}
+from random import randint
+
+# Criando um dataframe com plots (5) de interesse
+exp = pd.DataFrame({"treat": [randint(1, 6) for _ in range(5)]})
+
+# Filtrando a coluna de plots do `forest_info` com a coluna 'treat' do 'exp' usando `isin`
+forest_info[forest_info.plots.isin(exp.treat)]
+
+#                   trees     height        dbh  plots
+# 1  Paubrasilia echinata  12.920267  10.672437      2
+# 2  Eucalyptus urophylla  19.877132   9.607769      3
+# 3  Paubrasilia echinata  10.525335  12.740519      4
+# 4  Eucalyptus urophylla  12.391588  13.922425      5
+# 5  Paubrasilia echinata  14.135821   6.524656      6
+
+# Filtrando a coluna de plots do `forest_info` com a coluna 'treat' do 'exp' usando `isin` 
+# dentro do método `query` e obtendo os valores da coluna
+
+forest_info.query("plots.isin(@exp.treat).values")
+
+#                   trees     height        dbh  plots
+# 1  Paubrasilia echinata  12.920267  10.672437      2
+# 2  Eucalyptus urophylla  19.877132   9.607769      3
+# 3  Paubrasilia echinata  10.525335  12.740519      4
+# 4  Eucalyptus urophylla  12.391588  13.922425      5
+# 5  Paubrasilia echinata  14.135821   6.524656      6
+```
+
+Por hoje é isso. Até a próxima!
