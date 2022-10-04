@@ -28,7 +28,7 @@ Sua aplicação se dá em diversos campos, sendo o mais comum na área de identi
 
 A Lei de Benford é utilizada para a identificação de anomalias em séries de dados, não sendo bala de prata para a identificação de fraudes, ainda que seu uso seja de grande valia e um direcionador.  
 
-Neste caso em questão, utilizarei a biblioteca [`benford_py`](https://github.com/milcent/benford_py) do Python para a identificação de possíveis fraudes no dataset [Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud). Esse dataset trás transações realizadas por clientes europeus no ano de 2013, tendo ao todo 284.807 registros, sendo fraudes 492 desses dados. A ideia aqui é simular uma possível seleção de transações para inspeção mais rigorosa, dada o tamanho elevado da base da dados. Assim, o objetivo é realizar a avaliação da base de dados usando a Lei de Benford e então definir a seleção de amostras de determinados grupos de números, caso sejam observadas anomalias.  
+Neste caso em questão, utilizarei a biblioteca [`benford_py`](https://github.com/milcent/benford_py) do Python para a identificação de possíveis fraudes no dataset [Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud). Esse dataset trás transações realizadas por clientes europeus no ano de 2013, tendo ao todo 284.807 registros, sendo fraudes 492 desses dados. A ideia aqui é simular uma possível seleção de transações para inspeção mais rigorosa, dado o tamanho elevado da base da dados. Assim, o objetivo é realizar a avaliação da base de dados usando a Lei de Benford e então definir a seleção de amostras de determinados grupos de números, caso sejam observadas anomalias.  
 
 # Identificação de Red Flags
 
@@ -74,7 +74,7 @@ A base de dados então foi reduzida a 48.991 linhas. Ainda é uma base grande (2
 
 # Efetividade da Lei de Benford
 A essa altura você deve estar pensando: `sim, mas quem me garante que essa técnica é efetiva?`  
-Como o dataset, diferente da vida real, possui uma coluna `Class` indicando fraudes (1) e não-fraudes (2), podemos investigar o quanto os valores identificados ('99', '89', '19', '10') correspondem a fraudes na base completa:  
+Como o dataset, diferente da vida real, possui uma coluna `Class` indicando fraudes (1) e não-fraudes (0), podemos investigar o quanto os valores identificados ('99', '89', '19', '10') correspondem a fraudes na base completa:  
 
 ```{python eval=FALSE, echo=TRUE}
 (fraud_df
